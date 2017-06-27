@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+{% load admin_urls%}
+
+{% block login %}
+
+    <div id="middle" class="middle">
+
+        <h1>IPTV数据共享平台</h1>
+
+        <form class="form-horizontal" action="" method="post">
+            {% csrf_token %}
+            <div class="login">用户名{{ form.username }}</div>
+            <div class="login">密&nbsp;&nbsp;&nbsp;&#32;码{{ form.password }}</div>
+            <div class="login">验证码{{ form.checkcode }}</div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img onclick='ChangeCode();' id='imgCode' src='/checkcode/' title='点击更新' />
+            <p class="form-actions">
+                <input type="submit" value="登录" class="btn btn-primary">
+            </p>
+        </form>
+
+        {% if password_is_wrong %}
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h3>错误!</h3>
+                <h4>用户名或密码错误</h4>
+            </div>
+        {% endif %}
+
+        {% if check_code_is_wrong %}
+            <div class="alert alert-error" style="width: 200px">
+                <h3>验证码错误！</h3>
+            </div>
+        {% endif %}
+
+    </div>
+
+
+    <script type="text/javascript">
+	    function ChangeCode() {
+            var code = document.getElementById('imgCode');
+            code.src += '?';
+        }
+    </script>
+
+
+{% endblock %}

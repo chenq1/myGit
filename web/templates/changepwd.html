@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+{% load admin_urls%}
+
+{% block changepwd %}
+
+    <div class="report">
+
+        <h2>修改密码</h2>
+        <div>帐号：{{ request.user }}</div>
+        <form class="form-horizontal" action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <p class="form-actions">
+                <input type="submit" value="确认修改" class="btn btn-danger">
+                <a href="{% url 'web_views_index' %}"><input type="button" value="返回" class="btn btn-primary"></a>
+            </p>
+        </form>
+
+        {% if oldpassword_is_wrong %}
+            <div class="alert-error" >
+                <h4>错误!</h4>
+                原密码不正确
+            </div>
+        {% endif %}
+
+        {% if password_is_different %}
+            <div class="alert-error">
+                <h4>错误!</h4>
+                两次输入密码不一致
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

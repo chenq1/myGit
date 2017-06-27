@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+{% load admin_urls%}
+
+{% block dRpt %}
+
+
+<div id="report" class="report">
+
+    <div>
+        <h2 style="width: auto">IPTV日报查询</h2>
+        <div style="float: right">您好，{{ request.user }}用户</div>
+    </div>
+
+    <form class="form-horizontal" action="" method="POST">
+
+        {% csrf_token %}
+
+        {% for platformname in form.platformname %}
+            <div id="platformname" style="font-size: 20px">{{ platformname }}</div>
+        {% endfor %}
+
+        <div id="dRptdate">{{ form.dRptdate }}</div>
+
+        <p class="form-actions">
+            <input type="submit" value="查询" class="btn btn-primary">
+            <a href="{% url 'web_views_index' %}"><input type="button" value="返回" class="btn btn-danger"></a>
+        </p>
+
+    </form>
+</div>
+
+{% endblock %}

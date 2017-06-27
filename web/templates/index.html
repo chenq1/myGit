@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+{% load admin_urls%}
+
+{% block index %}
+
+    <div class="report">
+        <div style="width: auto;left: 50px;height: 80px">
+            <h1>查询目录</h1>
+            <div style="float: right">
+                <div>您好，{{ request.user }}用户</div>
+                <a href="{% url 'web_views_version' %}"><input type="button" value="查看版本" class="btn btn-success"></a>
+                <a href="{% url 'web_views_changepwd' %}"><input type="button" value="修改密码" class="btn btn-danger"></a>
+                <a href="{% url 'web_views_logout' %}"><input type="button" value="注销" class="btn btn-success"></a>
+            </div>
+        </div>
+
+        <form style="margin-top: 80px">
+
+            <p class="form-actions">
+                <a href="{% url 'web_views_dRpt' %}"><input type="button" value="日报查询" class="btn btn-primary"></a>
+            </p>
+
+            <p class="form-actions">
+                <a href="{% url 'web_views_wRpt' %}"><input type="button" value="周报查询" class="btn btn-primary"></a>
+            </p>
+
+            <p class="form-actions">
+                <a href="{% url 'web_views_ippool' %}"><input type="button" value="IP段内用户数查询" class="btn btn-primary"></a>
+            </p>
+        </form>
+
+        {% if changepwd_success %}
+            <div class="alert alert-error">
+                <h4>修改成功</h4>
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

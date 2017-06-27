@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+{# 华为中兴显示页面 #}
+	<meta charset="utf-8"/>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.css">
+    <title>日报查询结果</title>
+	<style type="text/css">
+        .div{position:absolute;margin-left: 20px;top:107px;font-size: 14px;}
+        {#表格框主体数据宽高#}
+	    td {
+{#		    width:100px;#}
+		    line-height: 25px;
+		    text-align:center;
+	    }
+        {#表格框左第一格数据宽高#}
+	    td:first-child{
+		    background-color: grey;
+	    }
+        {#表格头数据宽高#}
+        th {
+		    line-height: 60px;
+		    text-align:center;
+		    background-color: darkgrey;
+	    }
+
+	</style>
+	<script type="text/javascript">
+	 var pre_scrollTop = 0;  // 滚动条事件之前文档滚动高度
+	 var obj_topic ;
+	 var scroll_top;
+
+	 window.onload = function(){
+        pre_scrollTop = (document.documentElement.scrollTop);
+	 	obj_topic = document.getElementById("topic");
+	 	var tbl = document.getElementById("table");
+	 	var trs = tbl.getElementsByTagName("tr");
+        {#这个方法是判断单元格颜色#}
+	 	for (var i = 1; i < trs.length ; i++) {
+            var _tr = trs[i]
+            var tds = _tr.getElementsByTagName('td');
+            {# 把中间哪部门数字做成整数型 #}
+            for(var a = 4; a <= 10; a ++ ) {
+                var _td = tds[a];
+                var tdDiv = _td.getElementsByTagName('div');
+                tdDiv[0].innerHTML = parseInt(tdDiv[0].innerHTML)
+            }
+
+            for(var j = 4; j <= 13; j += 3) {
+                var _td = tds[j];
+                var tdDiv = _td.getElementsByTagName('div');
+                tdDiv[0].innerHTML = parseInt(tdDiv[0].innerHTML)
+                if (tdDiv[0].innerHTML >= 90)
+                    _td.style.backgroundColor = 'pink';
+                else if (tdDiv[0].innerHTML < 20)
+                    _td.style.backgroundColor = 'yellow';
+            }
+        }
+	 }
+
+	 window.onscroll = function(){
+
+         {#因为google有个bug，不认可documentElement，所以要先判断兼容#}
+         if (document.documentElement && document.documentElement.scrollTop)
+             scroll_top = document.documentElement.scrollTop;
+         else if (document.body)
+             scroll_top = document.body.scrollTop;
+
+        {#这个方法是冻结表头#}
+         if(pre_scrollTop != (scroll_top)){
+	 		pre_scrollTop = (scroll_top);
+
+	 		if(pre_scrollTop > 107){
+                obj_topic.style.top = pre_scrollTop+"px";
+{#                alert(obj_topic.style.top)#}
+	 		}else {
+	 		    obj_topic.style.top = 107+"px";
+            }
+	 	}
+	 }
+    </script>
+
+</head>
+
+<body>
+    <h2 style="margin-left: 20px">查询得到{{ info.date }}的数据</h2>
+
+    <p class="form-actions" style="position:relative;left: 20px;top: 10px">
+        <a href="JavaScript:history.back(-1)"><input type="button" value="返回" class="btn btn-danger"></a>
+        <a href="../download?platformname={{ info.platformname }}&date={{ info.date }}&day={{ info.day }}"><input type="button" value="下载" class="btn btn-info"></a>
+    </p>
+
+    <div id="topic" class="div">
+        <table cellpadding="0" cellspacing="0" border="1" style="width:1400px;font-size: 13px">
+            <thead>
+                <tr id="topic">
+                <th width="200">节点名称</th>
+                <th>平均码流(Mbps)</th>
+                <th>设计带宽(Gbps)</th>
+                <th>输出带宽(Gbps)</th>
+                <th>输出带宽占比%</th>
+                <th>EPG总并发(个)</th>
+                <th>EPG峰值并发(个)</th>
+                <th>EPG并发率%</th>
+                <th>流媒体总并发(个)</th>
+                <th>流媒体峰值并发(个)</th>
+                <th>流媒体并发率%</th>
+                <th>存储空间(T)</th>
+                <th>已使用空间(T)</th>
+                <th>空间使用率%</th>
+		        </tr>
+            </thead>
+        </table>
+    </div>
+
+	<table id="table" cellpadding="0" cellspacing="0" border="1" style="margin-left: 20px;width:1400px;font-size: 13px;">
+
+        <thead>
+		    <tr>
+                <th width="200">节点名称</th>
+                <th>平均码流(Mbps)</th>
+                <th>设计带宽(Gbps)</th>
+                <th>输出带宽(Gbps)</th>
+                <th>输出带宽占比%</th>
+                <th>EPG总并发(个)</th>
+                <th>EPG峰值并发(个)</th>
+                <th>EPG并发率%</th>
+                <th>流媒体总并发(个)</th>
+                <th>流媒体峰值并发(个)</th>
+                <th>流媒体并发率%</th>
+                <th>存储空间(T)</th>
+                <th>已使用空间(T)</th>
+                <th>空间使用率%</th>
+		    </tr>
+        </thead>
+
+        <tbody>
+            {% for x in form %}
+                <tr id="body" style="position: static;top: 100px;">
+                    {% for y in x %}
+                        <td><div contenteditable="false">
+                            {{ y }}
+                        </div></td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+
+	</table>
+
+</body>
+</html>

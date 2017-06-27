@@ -1,0 +1,43 @@
+<h1>计算IP段中用户数</h1>
+{% load l10n %}
+
+<form action="" method="post">
+
+    {% csrf_token %}
+    {{ursinpool.iplen.label}} {{ursinpool.iplen}}
+    {{ursinpool.daylength.label}} {{ursinpool.daylength}}
+    {{ursinpool.plat.label}} {{ursinpool.plat}}
+    {{ursinpool.zero}}{{ursinpool.zero.label}}
+    {{ursinpool.sip.label}} {{ursinpool.sip}}
+    <input type="submit" value="查询">
+    <a href="{% url 'web_views_index' %}"><input type="button" value="返回"></a>
+
+</form>
+
+<span>
+    {% if timeminus %}
+        查询使用了{{ timeminus }} 秒，
+        查询到{{rowslen}}条记录。
+    {% endif %}
+</span>
+<table border="1">
+    <tr>
+    <th>NOC开始IP</th>
+    <th>NOC结束IP</th>
+    <th>区局</th>
+    <th>厂商开始IP</th>
+    <th>厂商结束IP</th>
+    <th>节点名称</th>
+    <th>用户数</th>
+    <th>平台</th>
+    </tr>
+    {% for row in  rows %}
+    <tr>
+        {% for i in row %}
+            <td>
+                {{ i }}
+            </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>

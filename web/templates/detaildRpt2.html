@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+{# 烽火显示页面 #}
+	<meta charset="utf-8"/>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.css">
+    <title>日报查询结果</title>
+	<style type="text/css">
+        .div{position:absolute;margin-left: 20px;top:107px;width:202px;ont-size: 14px;}
+        .th{line-height: 25px;text-align:center;background-color: grey;width: 200px}
+        {#表格框主体数据宽高#}
+	    td {
+{#		    width:100px;#}
+		    line-height: 25px;
+		    text-align:center;
+	    }
+        {#表格框左第一格数据宽高#}
+	    td:first-child{
+		    text-align:center;
+		    background-color: grey;
+	    }
+        {#表格头数据宽高#}
+        th {
+		    line-height: 60px;
+		    text-align:center;
+		    background-color: darkgrey;
+	    }
+
+	</style>
+	<script type="text/javascript">
+	 var pre_scrollLeft = 0;  // 滚动条事件之前文档滚动高度
+	 var obj_left ;
+	 var scroll_left;
+	 window.onload = function(){
+        pre_scrollLeft = (document.documentElement.scrollLeft);
+	 	obj_left = document.getElementById("topic");
+	 	var tbl = document.getElementById("table");
+	 	var trs = tbl.getElementsByTagName("tr");
+        {#这个方法是判断单元格颜色#}
+	 	for (var i = 1; i < trs.length ; i++) {
+            var _tr = trs[i]
+            var tds = _tr.getElementsByTagName('td');
+            for(var j = 2; j < tds.length; j++) {
+                var _td = tds[j];
+                var tdDiv = _td.getElementsByTagName('div');
+                tdDiv[0].innerHTML = parseInt(tdDiv[0].innerHTML)
+            }
+
+            for(var j = 5; j < 12; j += 3) {
+                var _td = tds[j];
+                var tdDiv = _td.getElementsByTagName('div');
+                tdDiv[0].innerHTML = parseInt(tdDiv[0].innerHTML)
+                if (tdDiv[0].innerHTML >= 80)
+                    _td.style.backgroundColor = 'pink';
+                else if (tdDiv[0].innerHTML < 20)
+                    _td.style.backgroundColor = 'yellow';
+            }
+        }
+	 }
+
+	 window.onscroll = function(){
+
+         {#因为google有个bug，不认可documentElement，所以要先判断兼容#}
+         if (document.documentElement && document.documentElement.scrollLeft)
+             scroll_left = document.documentElement.scrollLeft;
+         else if (document.body)
+             scroll_left = document.body.scrollLeft;
+
+        {#这个方法是冻结表左侧#}
+         if(pre_scrollLeft != (scroll_left)){
+	 		pre_scrollLeft = (scroll_left);
+	 		if(pre_scrollLeft > 20){
+                obj_left.style.left = pre_scrollLeft-20+"px";
+	 		}else {
+	 		    obj_left.style.left = 0+"px";
+            }
+	 	}
+	 }
+    </script>
+</head>
+
+<body>
+    <h2 style="margin-left: 20px">查询得到{{ info.date }}的数据</h2>
+
+    <p class="form-actions" style="position:relative;left: 20px;top: 10px">
+        <a href="JavaScript:history.back(-1)"><input type="button" value="返回" class="btn btn-danger"></a>
+        <a href="../download?platformname={{ info.platformname }}&date={{ info.date }}&day={{ info.day }}"><input type="button" value="下载" class="btn btn-info"></a>
+    </p>
+
+    <div id="topic" class="div">
+        <table cellpadding="0" cellspacing="0" border="1">
+            <thead id="left">
+            <tr>
+                <th>节点名称</th>
+            </tr>
+            <tr>
+                <th class="th">南汇区域01</th>
+            </tr>
+            <tr>
+                <th class="th">南汇区域01边缘01</th>
+            </tr>
+            <tr>
+                <th class="th">南汇区域01边缘02</th>
+            </tr>
+            <tr>
+                <th class="th">高东区域01</th>
+            </tr>
+            <tr>
+                <th class="th">高东区域01边缘01</th>
+            </tr>
+            <tr>
+                <th class="th">高东区域01边缘02</th>
+            </tr>
+            <tr>
+                <th class="th">高东区域02</th>
+            </tr>
+            <tr>
+                <th class="th">高东区域02边缘01</th>
+            </tr>
+            <tr>
+                <th class="th">高东区域03</th>
+            </tr>
+            <tr>
+                <th class="th">高东区域03边缘01</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+
+	<table id="table" cellpadding="0" cellspacing="0" border="1" style="margin-left: 20px;width:4000px;font-size: 14px;">
+        <thead>
+		    <tr>
+                <th width="200">节点名称</th>
+                <th>区域</th>
+                <th>平均码流</th>
+                <th>设计带宽(Gbps)</th>
+                <th>输出带宽(Gbps)</th>
+                <th>输出带宽占比%</th>
+                <th>流媒体总并发(个)</th>
+                <th>流媒体峰值并发(个)</th>
+                <th>流媒体并发率%</th>
+                <th>存储空间(T)</th>
+                <th>已使用空间(T)</th>
+                <th>空间使用率%</th>
+                <th>芒果tv(Mbps)</th>
+                <th>芒果tv(%)</th>
+                <th>4K(Mbps)</th>
+                <th>4K(%)</th>
+                <th>优酷(Mbps)</th>
+                <th>优酷(%)</th>
+                <th>机顶盒下载(Mbps)</th>
+                <th>机顶盒下载(%)</th>
+                <th>百事通回源(Mbps)</th>
+                <th>百事通回源(%)</th>
+                <th>测速(Mbps)</th>
+                <th>测速(％)</th>
+                <th>播播(Mbps)</th>
+                <th>播播(%)</th>
+                <th>天翼视讯(Mbps)</th>
+                <th>天翼视讯(%)</th>
+                <th>教育中心(Mbps)</th>
+                <th>教育中心(%)</th>
+                <th>华数(Mbps)</th>
+                <th>华数(%)</th>
+                <th>嘉攸(Mbps)</th>
+                <th>嘉攸(%)</th>
+                <th>嘉攸直播(Mbps)</th>
+                <th>嘉攸直播(%)</th>
+		    </tr>
+        </thead>
+        <tbody>
+            {% for x in form %}
+                <tr id="body" style="position: static;top: 100px;">
+                    {% for y in x %}
+                        <td><div contenteditable="false">
+                            {{ y }}
+                        </div></td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+	</table>
+
+</body>
+</html>

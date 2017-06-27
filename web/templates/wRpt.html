@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+{% load admin_urls%}
+
+
+{% block wRpt %}
+
+<div id="report" class="report">
+
+    <div>
+        <h2>IPTV周报查询</h2>
+        <div style="float: right">您好，{{ request.user }}用户</div>
+    </div>
+
+    <form class="form-horizontal" action="" onsubmit="check()" method="post">
+
+        {% csrf_token %}
+
+        {% for platformname in form.platformname %}
+            <div id="platformname" style="font-size: 20px">{{ platformname }}</div>
+        {% endfor %}
+
+        <div>{{ form.wRptstartdate }}到{{ form.wRptenddate }}</div>
+
+        <p class="form-actions">
+            <input type="submit" value="查询"  class="btn btn-primary">
+            <a href="{% url 'web_views_index' %}"><input type="button" value="返回" class="btn btn-danger"></a>
+        </p>
+
+    </form>
+
+        {% if date_is_wrong %}
+            <div style="width: auto">
+                <h4>截止日期小于输入日期</h4>
+                <h4>请重新输入!</h4>
+            </div>
+        {% endif %}
+</div>
+
+
+{% endblock %}
