@@ -12,5 +12,14 @@
 	</style>
 </head>
 <body>
+                    {% for x in form.data %}
+                        <tr id="body" style="position: static;top: 100px;">
+                            {% for y in x %}
+                                <td><div contenteditable="false">
+                                    {{ y }}
+                                </div></td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
 </body>
 </html>

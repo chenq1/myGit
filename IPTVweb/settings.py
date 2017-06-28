@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gwu@))#qw9cyhsx-$jo=u&ur!evr=9@b7rakd+sc&vp)zv41f^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -119,13 +119,23 @@ STATICFILES_DIRS = (
 )
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'iptvyw01',
+#         'USER':'caixiaoming',
+#         'PASSWORD':'Sad^1302',
+#         'HOST':'172.16.48.145',
+#         'PORT':'56306',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'iptvyw01',
-        'USER':'caixiaoming',
-        'PASSWORD':'Sad^1302',
-        'HOST':'172.16.48.145',
-        'PORT':'56306',
+        'NAME': 'iptvweb',
+        'USER':'root',
+        'PASSWORD':'cq71047887',
+        'HOST':'localhost',
+        'PORT':'3306',
     }
 }

@@ -102,6 +102,18 @@ class Detail:
                 sumhms = 0
                 sumepg = 0
                 sumll = 0
+                mangguoll = 0
+                number_4kll = 0
+                youkull = 0
+                stbdown = 0
+                bestvll = 0
+                cesull = 0
+                boboll = 0
+                tianyill = 0
+                jiaoyull = 0
+                huasull = 0
+                jiayoull = 0
+                jylivell = 0
 
                 if platformname == 'HW':
                     p = Thwdayrpt.objects.filter(updatetime__icontains=startday).values_list('peakhmsbf','peakepgbf','peakjdll')
@@ -119,7 +131,34 @@ class Detail:
                         sumll = sumll + peakjdll
                     tup = (str(date)[5:],int(sumhms),int(sumepg),int(sumll))
 
-                # if platformname == 'fenghuo':
+                if platformname == 'FH':
+                    # 表数据还没，所以就暂时设置数据
+                    sumyonghu = 8000
+                    sumhms = 1000
+                    sumepg = 1000
+                    sumll = 70000
+                    # 获取烽火各部分流量数据：芒果，4k，优酷，机顶盒，百事通，测速，播播，天翼，教育中心，华数，嘉攸，嘉攸直播
+                    p = Tfhdayrpt.objects.filter(updatetime__icontains=startday).\
+                        values_list('mangguoll','number_4kll','youkull','stbdown','bestvll',
+                         'cesull','boboll','tianyill','jiaoyull','huasull','jiayoull','jylivell')
+                    for mangguo,number_4k,youku,stb,bestv,cesu,bobo,tianyi,jiayu,huasu,jiayou,jylive in p.iterator():
+                        mangguoll = mangguoll + mangguo
+                        number_4kll = number_4kll + number_4k
+                        youkull = youkull + youku
+                        stbdown = stbdown + stb
+                        bestvll = bestvll + bestv
+                        cesull = cesull + cesu
+                        boboll = boboll + bobo
+                        tianyill = tianyill + tianyi
+                        jiaoyull = jiaoyull + jiayu
+                        huasull = huasull + huasu
+                        jiayoull = jiayoull + jiayou
+                        jylivell = jylivell + jylive
+
+                    tup = (str(date)[5:],int(sumhms),int(sumepg),int(sumll),
+                           int(mangguoll),int(number_4kll),int(youkull),int(stbdown),int(bestvll),int(cesull),
+                           int(boboll),int(tianyill),int(jiaoyull),int(huasull),int(jiayoull),int(jylivell))
+                    print(tup)
 
                 list1.append(tup)
                 start = self.setAddDay(start)

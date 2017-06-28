@@ -130,7 +130,7 @@ class WeekRptForm(forms.Form):
         required=True,
         label = u"平台",
         error_messages={'required': u'请选择平台'},
-        widget=forms.RadioSelect, choices=PLAT_CHOICES,
+        widget=forms.RadioSelect, choices=PLATFORM_CHOICES,
     )
     wRptstartdate = forms.DateField(
         required=True,
