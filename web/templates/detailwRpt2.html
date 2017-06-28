@@ -9,9 +9,60 @@
     <script src='/static/jquery/highcharts.js'></script>
     <title>周报查询结果</title>
     <style type="text/css">
+        .report{position: relative;top: 10%;left: 20px;width: 1400px;height: 80%;}
+	    table{
+		    width:auto;
+            font-size: 14px;
+        }
+	    td {
+		    width:100px;
+		    line-height: 25px;
+		    text-align:center;
+	    }
+	    td:first-child{
+            width: 180px;
+		    background-color: grey;
+	    }
+
+        th {
+            width:120px;
+		    line-height: 30px;
+		    text-align:center;
+            background-color: darkgrey;
+	    }
 	</style>
 </head>
 <body>
+    <h2 style="margin-left: 20px">查询得到{{ info.wRptstartdate }}到{{ info.wRptenddate }}的数据</h2>
+    <p class="form-actions" style="position:relative;left: 20px;top: 10px">
+        <a href="JavaScript:history.back(-1)"><input type="button" value="返回" class="btn btn-danger"></a>
+        <a href="../download?platformname={{ info.platformname }}&wRptstartdate={{ info.wRptstartdate }}&wRptenddate={{ info.wRptenddate }}&day={{ info.day }}"><input type="button" value="下载" class="btn btn-info"></a>
+    </p>
+	<div id="wrap" class="report">
+
+        <div style="width: 2000px">
+            <table id="table" cellpadding="0" cellspacing="0" border="1">
+                <thead>
+                    <tr id="title">
+                        <th>日期</th>
+                        <th>流媒体并发(个)</th>
+                        <th>epg并发(个)</th>
+                        <th>流量数据(GBps)</th>
+                        <th>芒果tv(Mbps)</th>
+                        <th>4k(Mbps)</th>
+                        <th>优酷(Mbps)</th>
+                        <th>机顶盒下载(Mbps)</th>
+                        <th>百事通回源(Mbps)</th>
+                        <th>测速(Mbps)</th>
+                        <th>播播(Mbps)</th>
+                        <th>天翼视讯(Mbps)</th>
+                        <th>教育中心(Mbps)</th>
+                        <th>华数(Mbps)</th>
+                        <th>嘉攸(Mbps)</th>
+                        <th>嘉攸直播(Mbps)</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {% for x in form.data %}
                         <tr id="body" style="position: static;top: 100px;">
                             {% for y in x %}
@@ -21,5 +72,9 @@
                             {% endfor %}
                         </tr>
                     {% endfor %}
+                </tbody>
+            </table>
+        </div>
+	</div>
 </body>
 </html>

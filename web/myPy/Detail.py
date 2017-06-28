@@ -158,7 +158,7 @@ class Detail:
                     tup = (str(date)[5:],int(sumhms),int(sumepg),int(sumll),
                            int(mangguoll),int(number_4kll),int(youkull),int(stbdown),int(bestvll),int(cesull),
                            int(boboll),int(tianyill),int(jiaoyull),int(huasull),int(jiayoull),int(jylivell))
-                    print(tup)
+                    # print(tup)
 
                 list1.append(tup)
                 start = self.setAddDay(start)
